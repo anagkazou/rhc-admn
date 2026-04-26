@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import {
   Card,
   CardContent,
@@ -19,7 +20,15 @@ export default async function LoginPage({
   return (
     <main className="flex flex-1 items-center justify-center p-6">
       <Card className="w-full max-w-sm">
-        <CardHeader>
+        <CardHeader className="items-center text-center">
+          <Image
+            src="/crest.png"
+            alt="Roll High Club"
+            width={88}
+            height={58}
+            priority
+            className="mx-auto mb-3 h-12 w-auto"
+          />
           <CardTitle className="font-display text-2xl font-semibold text-gold">
             Admin sign in
           </CardTitle>

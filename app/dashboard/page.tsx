@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { requireAdmin } from '@/lib/dal'
 import { createClient } from '@/lib/supabase/server'
 import { Button } from '@/components/ui/button'
@@ -52,13 +53,23 @@ export default async function DashboardPage({
     <main className="flex-1">
       <div className="mx-auto w-full max-w-3xl px-4 py-8 sm:px-6 sm:py-12">
         <header className="mb-8 flex items-start justify-between gap-4">
-          <div className="space-y-1">
-            <h1 className="font-display text-3xl font-semibold tracking-tight text-gold">
-              Contact submissions
-            </h1>
-            <p className="text-sm text-muted-foreground">
-              Signed in as {admin.authEmail}
-            </p>
+          <div className="flex items-start gap-3">
+            <Image
+              src="/crest.png"
+              alt="Roll High Club"
+              width={55}
+              height={36}
+              priority
+              className="mt-1 h-9 w-auto"
+            />
+            <div className="space-y-1">
+              <h1 className="font-display text-3xl font-semibold tracking-tight text-gold">
+                Contact submissions
+              </h1>
+              <p className="text-sm text-muted-foreground">
+                Signed in as {admin.authEmail}
+              </p>
+            </div>
           </div>
           <form action={logout}>
             <Button type="submit" variant="outline" size="sm">
