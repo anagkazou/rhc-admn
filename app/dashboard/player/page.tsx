@@ -1,6 +1,6 @@
 import { parsePage, SubmissionsListView } from '../list-view'
 
-export default async function ContactSubmissionsPage({
+export default async function PlayerSubmissionsPage({
   searchParams,
 }: {
   searchParams: Promise<{ page?: string }>
@@ -9,8 +9,8 @@ export default async function ContactSubmissionsPage({
   return (
     <SubmissionsListView
       table="contact_submissions"
-      title="Contact submissions"
-      basePath="/dashboard/contact"
+      title="Player submissions"
+      basePath="/dashboard/player"
       page={parsePage(pageParam)}
     />
   )
