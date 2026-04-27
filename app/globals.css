@@ -45,6 +45,15 @@
   --color-input: var(--color-pill-border);
   --color-ring: var(--color-accent-ring);
 
+  --color-sidebar: var(--color-card-deep);
+  --color-sidebar-foreground: var(--color-body);
+  --color-sidebar-primary: var(--color-gold);
+  --color-sidebar-primary-foreground: var(--color-ink);
+  --color-sidebar-accent: var(--color-accent-dim);
+  --color-sidebar-accent-foreground: var(--color-text-light);
+  --color-sidebar-border: var(--color-pill-border);
+  --color-sidebar-ring: var(--color-accent-ring);
+
   --font-heading: var(--font-display);
 
   --radius-sm: calc(var(--radius) * 0.6);
