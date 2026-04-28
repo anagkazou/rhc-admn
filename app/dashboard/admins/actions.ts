@@ -22,10 +22,17 @@ export async function inviteAdmin(
 
   const admin = createAdminClient()
 
-  const h = await headers()
-  const proto = h.get('x-forwarded-proto') ?? 'http'
-  const host = h.get('host') ?? 'localhost:3000'
-  const redirectTo = `${proto}://${host}/auth/callback`
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim()
+  let origin: string
+  if (siteUrl) {
+    origin = siteUrl.replace(/\/$/, '')
+  } else {
+    const h = await headers()
+    const proto = h.get('x-forwarded-proto') ?? 'http'
+    const host = h.get('host') ?? 'localhost:3000'
+    origin = `${proto}://${host}`
+  }
+  const redirectTo = `${origin}/auth/callback`
 
   // Note: built-in Supabase invite. The user must click the email link, which
   // sends them to /auth/callback (it handles both hash-token and code flows).
