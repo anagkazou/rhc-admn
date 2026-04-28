@@ -53,7 +53,6 @@ export default async function SessionsPage() {
               <TableRow className="bg-card-deep hover:bg-card-deep">
                 <TableHead className="px-4">Admin</TableHead>
                 <TableHead className="hidden px-4 md:table-cell">Device</TableHead>
-                <TableHead className="hidden px-4 sm:table-cell">IP</TableHead>
                 <TableHead className="px-4">Last active</TableHead>
                 <TableHead className="px-4 text-right">
                   <span className="sr-only">Terminate</span>
@@ -69,9 +68,6 @@ export default async function SessionsPage() {
                     title={s.user_agent ?? undefined}
                   >
                     {summarizeUserAgent(s.user_agent)}
-                  </TableCell>
-                  <TableCell className="hidden px-4 py-3 text-muted-foreground sm:table-cell">
-                    {s.ip ?? '—'}
                   </TableCell>
                   <TableCell className="px-4 py-3 text-xs text-muted-foreground">
                     {formatTimestamp(s.refreshed_at ?? s.created_at)}
