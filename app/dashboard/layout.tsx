@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { cookies } from 'next/headers'
 import { LogOutIcon } from 'lucide-react'
-import { requireAdmin } from '@/lib/dal'
+import { getMfaStatus, requireAdmin } from '@/lib/dal'
 import {
   Sidebar,
   SidebarContent,
@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/sidebar'
 import { Separator } from '@/components/ui/separator'
 import { DashboardSidebarNav } from './sidebar-nav'
+import { MfaBanner } from './mfa-banner'
 import { logout } from './actions'
 
 export default async function DashboardLayout({
@@ -21,6 +22,7 @@ export default async function DashboardLayout({
   children: React.ReactNode
 }) {
   const admin = await requireAdmin()
+  const mfa = await getMfaStatus()
   const cookieStore = await cookies()
   const defaultOpen = cookieStore.get('sidebar_state')?.value !== 'false'
 
@@ -91,6 +93,8 @@ export default async function DashboardLayout({
             Roll High Club <span className="text-muted-foreground">Admin</span>
           </span>
         </header>
+
+        {!mfa.hasVerifiedFactor ? <MfaBanner /> : null}
 
         <div className="mx-auto w-full max-w-6xl px-4 py-6 sm:px-6 sm:py-10">
           {children}

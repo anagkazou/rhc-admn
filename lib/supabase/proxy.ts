@@ -30,16 +30,19 @@ export async function updateSession(request: NextRequest) {
   } = await supabase.auth.getUser()
 
   const { pathname } = request.nextUrl
-  const isAuthRoute = pathname === '/login'
+  const isLoginRoute = pathname === '/login'
+  // /auth/* covers the invite callback and set-password flow — open to both
+  // authenticated and unauthenticated users so invitees can complete signup.
+  const isAuthFlowRoute = pathname.startsWith('/auth/')
   const isPublicAsset = pathname.startsWith('/_next') || pathname === '/favicon.ico'
 
-  if (!user && !isAuthRoute && !isPublicAsset) {
+  if (!user && !isLoginRoute && !isAuthFlowRoute && !isPublicAsset) {
     const url = request.nextUrl.clone()
     url.pathname = '/login'
     return NextResponse.redirect(url)
   }
 
-  if (user && isAuthRoute) {
+  if (user && isLoginRoute) {
     const url = request.nextUrl.clone()
     url.pathname = '/dashboard'
     return NextResponse.redirect(url)

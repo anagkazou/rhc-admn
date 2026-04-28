@@ -16,6 +16,7 @@ export default async function LoginPage({
 }) {
   const { error } = await searchParams
   const notAdmin = error === 'not_admin'
+  const invalidInvite = error === 'invalid_invite'
 
   return (
     <main className="flex flex-1 items-center justify-center p-6">
@@ -41,6 +42,14 @@ export default async function LoginPage({
               <AlertDescription>
                 Sign in with an admin account, or ask an existing admin to grant
                 access.
+              </AlertDescription>
+            </Alert>
+          ) : invalidInvite ? (
+            <Alert variant="destructive">
+              <AlertTitle>Invite link expired</AlertTitle>
+              <AlertDescription>
+                That invitation link is no longer valid. Ask an admin to send a
+                fresh invite.
               </AlertDescription>
             </Alert>
           ) : null}

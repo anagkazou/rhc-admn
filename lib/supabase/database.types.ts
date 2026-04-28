@@ -68,11 +68,32 @@ export type Database = {
       }
     }
     Views: Record<string, never>
-    Functions: Record<string, never>
+    Functions: {
+      list_admin_sessions: {
+        Args: never
+        Returns: {
+          id: string
+          user_id: string
+          email: string
+          created_at: string
+          refreshed_at: string | null
+          not_after: string | null
+          user_agent: string | null
+          ip: string | null
+        }[]
+      }
+      terminate_session: {
+        Args: { target_session_id: string }
+        Returns: undefined
+      }
+    }
     Enums: Record<string, never>
     CompositeTypes: Record<string, never>
   }
 }
+
+export type AdminSession =
+  Database['public']['Functions']['list_admin_sessions']['Returns'][number]
 
 export type ContactSubmission = Database['public']['Tables']['contact_submissions']['Row']
 export type PartnerSubmission = Database['public']['Tables']['partner_submissions']['Row']

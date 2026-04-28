@@ -2,7 +2,13 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { HandshakeIcon, MailIcon } from 'lucide-react'
+import {
+  HandshakeIcon,
+  KeyRoundIcon,
+  MailIcon,
+  ShieldCheckIcon,
+  UsersIcon,
+} from 'lucide-react'
 import {
   SidebarGroup,
   SidebarGroupContent,
@@ -12,25 +18,46 @@ import {
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
 
-const items = [
-  {
-    href: '/dashboard/player',
-    label: 'Player ',
-    Icon: MailIcon,
-  },
-  {
-    href: '/dashboard/partners',
-    label: 'Partner ',
-    Icon: HandshakeIcon,
-  },
+type NavItem = {
+  href: string
+  label: string
+  Icon: typeof MailIcon
+}
+
+const submissionItems: readonly NavItem[] = [
+  { href: '/dashboard/player', label: 'Player ', Icon: MailIcon },
+  { href: '/dashboard/partners', label: 'Partner ', Icon: HandshakeIcon },
+] as const
+
+const securityItems: readonly NavItem[] = [
+  { href: '/dashboard/admins', label: 'Admins', Icon: UsersIcon },
+  { href: '/dashboard/sessions', label: 'Sessions', Icon: KeyRoundIcon },
+  { href: '/dashboard/security', label: 'Two-factor', Icon: ShieldCheckIcon },
 ] as const
 
 export function DashboardSidebarNav() {
   const pathname = usePathname()
 
   return (
+    <>
+      <NavGroup label="Submissions" items={submissionItems} pathname={pathname} />
+      <NavGroup label="Security" items={securityItems} pathname={pathname} />
+    </>
+  )
+}
+
+function NavGroup({
+  label,
+  items,
+  pathname,
+}: {
+  label: string
+  items: readonly NavItem[]
+  pathname: string | null
+}) {
+  return (
     <SidebarGroup>
-      <SidebarGroupLabel>Submissions</SidebarGroupLabel>
+      <SidebarGroupLabel>{label}</SidebarGroupLabel>
       <SidebarGroupContent>
         <SidebarMenu>
           {items.map(({ href, label, Icon }) => {
